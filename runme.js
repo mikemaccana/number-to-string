@@ -1,4 +1,3 @@
-const assert = require("assert");
 const log = console.log.bind(console);
 
 const numberToWords = function(number) {
@@ -7,7 +6,7 @@ const numberToWords = function(number) {
   }
   // There's a weird pattern in English here let me think about it
   // Can't Google right now just need to type this shit out
-  var onesToWords = [
+  const onesToWords = [
     "zero",
     "one",
     "two",
@@ -29,20 +28,45 @@ const numberToWords = function(number) {
     "nineteen"
   ];
 
+  const tensToWords = [
+    null,
+    null,
+    "twenty",
+    "thirty",
+    "forty",
+    "fifty",
+    "sixty",
+    "seventy",
+    "eighty",
+    "ninety"
+  ];
+
   // This test is more about being able to know the rules of English than how to program
 
-  var onesAndTens = String(number).slice(0, 2);
+  // We'll append this over time
+  var answer = "";
 
-  log({ onesAndTens });
-
-  if (onesAndTens < 20) {
-    return onesToWords[onesAndTens];
+  if (number < 20) {
+    answer += onesToWords[number];
   } else {
-    throw new Error(`Not implemented yet`);
+    var tens = Math.floor(number / 10);
+    var ones = number % 10;
+    // I could do {} I just don't like to.
+    log(`Tens is ${tens}`);
+    log(`ones is ${ones}`);
+    answer += `${tensToWords[tens]} `;
+    answer += onesToWords[ones];
   }
+
+  return answer;
 };
 
 // Trying some small numbers first
-assert(numberToWords(1) === "one");
-assert(numberToWords(10) === "ten");
-assert(numberToWords(11) === "eleven");
+// I really should use mocha, expect etc as it'd return expecyted vs actual
+
+// log(numberToWords(1));
+// log(numberToWords(10));
+// log(numberToWords(11));
+// Adding this because it tests more logic
+log(numberToWords(99));
+// log(numberToWords(111));
