@@ -23,16 +23,16 @@ suite(`Converts words to numbers`, function() {
   });
 
   test(`throws on unexpected input`, function() {
-    const fail = function() {
+    const dontProvideANumber = function() {
       numberToWords({});
     };
-    assert.throws(fail, Error, "Provide a number");
+    assert.throws(dontProvideANumber, Error, "Provide a number");
   });
 
   test(`throws on large numbers`, function() {
-    const fail = function() {
+    const provideABigNumber = function() {
       numberToWords(1000);
     };
-    assert.throws(fail, Error, "Not implemented");
+    assert.throws(provideABigNumber, Error, "Not implemented");
   });
 });
