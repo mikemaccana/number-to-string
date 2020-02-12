@@ -47,18 +47,17 @@ const numberToWords = function(number) {
   var answer = "";
 
   if (number < 20) {
-    answer += onesToWords[number];
-  } else {
-    var tens = Math.floor(number / 10);
-    var ones = number % 10;
-    // I could do {} I just don't like to.
-    log(`Tens is ${tens}`);
-    log(`ones is ${ones}`);
-    answer += `${tensToWords[tens]} `;
-    answer += onesToWords[ones];
+    return onesToWords[number];
   }
 
-  return answer;
+  const tens = Math.floor(number / 10);
+  const ones = number % 10;
+
+  if (number < 100) {
+    return `${tensToWords[tens]} ${onesToWords[ones]}`;
+  }
+
+  throw new Error(`Not implemented`);
 };
 
 // Trying some small numbers first
