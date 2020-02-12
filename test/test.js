@@ -2,6 +2,10 @@ const numberToWords = require("../number-to-words.js"),
   assert = require("assert");
 
 suite(`Converts words to numbers`, function() {
+  test(`zero`, function() {
+    assert.equal(numberToWords(0), "zero");
+  });
+
   test(`single digit numbers`, function() {
     assert.equal(numberToWords(10), "ten");
   });
