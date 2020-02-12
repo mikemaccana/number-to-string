@@ -23,28 +23,16 @@ suite(`Converts words to numbers`, function() {
   });
 
   test(`throws on unexpected input`, function() {
-    // There may be a betmore idomatic way to do this
-    var errored = false;
-    try {
+    const fail = function() {
       numberToWords({});
-    } catch (error) {
-      errored = true;
-    }
-    if (!errored) {
-      throw new Error(`Expected error but did not throw`);
-    }
+    };
+    assert.throws(fail, Error, "Provide a number");
   });
 
   test(`throws on large numbers`, function() {
-    // There may be a betmore idomatic way to do this
-    var errored = false;
-    try {
+    const fail = function() {
       numberToWords(1000);
-    } catch (error) {
-      errored = true;
-    }
-    if (!errored) {
-      throw new Error(`Expected error but did not throw`);
-    }
+    };
+    assert.throws(fail, Error, "Not implemented");
   });
 });
