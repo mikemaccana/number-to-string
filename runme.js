@@ -55,19 +55,19 @@ const numberToWords = function(number) {
   var tensAndOnes = number % 100;
 
   // Check hundreds
-  //
-  // We need to handle the and for hundreds
-  var isMoreAfterHundreds = Boolean(tensAndOnes);
   if (hundreds) {
     answer += `${onesToWords[hundreds]} hundred `;
-    if (isMoreAfterHundreds) {
+    if (Boolean(tensAndOnes)) {
       answer += `and `;
     }
   }
 
   // Then do tensAndOnes
   if (tensAndOnes < 20) {
-    answer += onesToWords[tensAndOnes];
+    // Don't bother with 'and zero'
+    if (tensAndOnes) {
+      answer += onesToWords[tensAndOnes];
+    }
   } else {
     const tens = Math.floor(tensAndOnes / 10);
     const ones = tensAndOnes % 10;
@@ -83,5 +83,7 @@ const numberToWords = function(number) {
 log(numberToWords(1));
 log(numberToWords(10));
 log(numberToWords(11));
-log(numberToWords(99));
+log(numberToWords(22));
 log(numberToWords(111));
+log(numberToWords(121));
+log(numberToWords(300));
