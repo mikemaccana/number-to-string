@@ -31,7 +31,7 @@ suite(`Converts words to numbers`, function() {
 
   test(`throws on large numbers`, function() {
     const provideABigNumber = function() {
-      numberToWords(1000);
+      numberToWords(1000000000);
     };
     assert.throws(provideABigNumber, Error, "Not implemented");
   });

@@ -5,9 +5,46 @@ const numberToWords = function(number) {
     throw new Error(`Provide a number`);
   }
 
-  if (number > 999) {
+  if (number > 999999999) {
     throw new Error(`Not implemented`);
   }
+
+  const handleThreeDigitChunk = function(suffix, number) {
+    // We'll append this over time
+    var answer = "";
+
+    var hundreds = Math.floor(number / 100);
+    var tensAndOnes = number % 100;
+
+    // Check hundreds
+    if (hundreds) {
+      // Note: do NOT add a trailing space, as this may be the end of the word (if there's no other columns)
+      answer += `${onesToWords[hundreds]} hundred`;
+      if (Boolean(tensAndOnes)) {
+        answer += ` and `;
+      } else {
+        // No more work to do
+        return answer;
+      }
+    }
+
+    // Then do tensAndOnes
+    if (tensAndOnes < 20) {
+      // Don't bother with 'and zero'
+      if (tensAndOnes) {
+        answer += onesToWords[tensAndOnes];
+      }
+    } else {
+      const tens = Math.floor(tensAndOnes / 10);
+      const ones = tensAndOnes % 10;
+      answer += `${tensToWords[tens]} ${onesToWords[ones]}`;
+    }
+
+    if (suffix) {
+      answer += ` ${suffix}`;
+    }
+    return answer;
+  };
 
   // This test is more about being able to know the rules of English than how to program
   const onesToWords = [
@@ -45,40 +82,31 @@ const numberToWords = function(number) {
     "ninety"
   ];
 
-  // We'll append this over time
-  var answer = "";
-
-  var hundreds = Math.floor(number / 100);
-  var tensAndOnes = number % 100;
+  const chunkWords = [null, "thousand", "million", "billion"];
 
   // Zero
   if (!number) {
     return onesToWords[number];
   }
 
-  // Check hundreds
-  if (hundreds) {
-    // Note: do NOT add a trailing space, as this may be the end of the word (if there's no other columns)
-    answer += `${onesToWords[hundreds]} hundred`;
-    if (Boolean(tensAndOnes)) {
-      answer += ` and `;
-    } else {
-      // No more work to do
-      return answer;
-    }
-  }
+  // We'll append this over time
+  var answer = "";
 
-  // Then do tensAndOnes
-  if (tensAndOnes < 20) {
-    // Don't bother with 'and zero'
-    if (tensAndOnes) {
-      answer += onesToWords[tensAndOnes];
+  const suffixes = {
+    billion: Number(String(number).slice(9, 12)),
+    million: Number(String(number).slice(6, 9)),
+    thousand: Number(String(number).slice(3, 6)),
+    "": Number(String(number).slice(0, 3))
+  };
+
+  log(suffixes);
+
+  Object.keys(suffixes).forEach(function(suffix) {
+    var value = suffixes[suffix];
+    if (value) {
+      answer += handleThreeDigitChunk(suffix, value);
     }
-  } else {
-    const tens = Math.floor(tensAndOnes / 10);
-    const ones = tensAndOnes % 10;
-    answer += `${tensToWords[tens]} ${onesToWords[ones]}`;
-  }
+  });
 
   return answer;
 };
