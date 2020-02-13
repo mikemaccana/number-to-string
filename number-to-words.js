@@ -82,7 +82,7 @@ const numberToWords = function(number) {
     "ninety"
   ];
 
-  const chunkWords = [null, "thousand", "million", "billion"];
+  // const chunkWords = [null, "thousand", "million", "billion"];
 
   // Zero
   if (!number) {
@@ -94,16 +94,21 @@ const numberToWords = function(number) {
 
   var paddedNumber = String(number).padStart(12, "0");
 
-  const suffixes = {
-    billion: Number(paddedNumber.slice(9, 3)),
-    million: Number(paddedNumber.slice(3, 6)),
-    thousand: Number(paddedNumber.slice(6, 9)),
-    "": Number(paddedNumber.slice(9, 12))
-  };
+  var chunkWords = ["", "thousand", "million", "billion"].reverse();
+
+  var suffixes = {};
+
+  var chunkIndex = 0;
+  chunkWords.forEach(function(chunkWord) {
+    var nextChunkIndex = chunkIndex + 3;
+    log(`>>> ${chunkWord} ${chunkIndex}  ${nextChunkIndex}`);
+    suffixes[chunkWord] = paddedNumber.slice(chunkIndex, nextChunkIndex);
+    chunkIndex = nextChunkIndex;
+  });
 
   Object.keys(suffixes).forEach(function(suffix) {
     var value = suffixes[suffix];
-    if (value) {
+    if (Number(value)) {
       answer += handleThreeDigitChunk(suffix, value);
     }
   });
