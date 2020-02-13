@@ -5,7 +5,7 @@ const numberToWords = function(number) {
     throw new Error(`Provide a number`);
   }
 
-  if (number > 999999999) {
+  if (number > 999999999999) {
     throw new Error(`Not implemented`);
   }
 
@@ -41,7 +41,7 @@ const numberToWords = function(number) {
     }
 
     if (suffix) {
-      answer += ` ${suffix}`;
+      answer += ` ${suffix} `;
     }
     return answer;
   };
@@ -92,14 +92,14 @@ const numberToWords = function(number) {
   // We'll append this over time
   var answer = "";
 
-  const suffixes = {
-    billion: Number(String(number).slice(9, 12)),
-    million: Number(String(number).slice(6, 9)),
-    thousand: Number(String(number).slice(3, 6)),
-    "": Number(String(number).slice(0, 3))
-  };
+  var paddedNumber = String(number).padStart(12, "0");
 
-  log(suffixes);
+  const suffixes = {
+    billion: Number(paddedNumber.slice(9, 3)),
+    million: Number(paddedNumber.slice(3, 6)),
+    thousand: Number(paddedNumber.slice(6, 9)),
+    "": Number(paddedNumber.slice(9, 12))
+  };
 
   Object.keys(suffixes).forEach(function(suffix) {
     var value = suffixes[suffix];
