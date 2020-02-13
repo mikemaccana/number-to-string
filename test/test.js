@@ -32,7 +32,7 @@ suite(`Converts words to numbers`, function() {
 
   test(`really big number`, function() {
     assert.equal(
-      numberToWords(30263484376400),
+      numberToWords(30_263_484_376_400),
       "thirty trillion two hundred and sixty three billion four hundred and eighty four million three hundred and seventy six thousand four hundred"
     );
   });
@@ -46,7 +46,7 @@ suite(`Converts words to numbers`, function() {
 
   test(`throws on large numbers`, function() {
     const provideABigNumber = function() {
-      numberToWords(1000000000000000);
+      numberToWords(1_000_000_000_000_000);
     };
     assert.throws(provideABigNumber, Error, "Not implemented");
   });

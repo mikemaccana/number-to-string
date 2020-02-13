@@ -92,8 +92,6 @@ const numberToWords = function(number) {
     "ninety"
   ];
 
-  // const chunkWords = [null, "thousand", "million", "billion"];
-
   // Zero
   if (!number) {
     return onesToWords[number];
