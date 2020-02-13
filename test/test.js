@@ -14,6 +14,10 @@ suite(`Converts words to numbers`, function() {
     assert.equal(numberToWords(11), "eleven");
   });
 
+  test(`tens numbers`, function() {
+    assert.equal(numberToWords(30), "thirty");
+  });
+
   test(`bigger than teens`, function() {
     assert.equal(numberToWords(31), "thirty one");
   });
@@ -28,8 +32,8 @@ suite(`Converts words to numbers`, function() {
 
   test(`really big number`, function() {
     assert.equal(
-      numberToWords(484376400),
-      "four hundred and eighty four million three hundred and seventy six thousand four hundred"
+      numberToWords(30263484376400),
+      "thirty trillion two hundred and sixty three billion four hundred and eighty four million three hundred and seventy six thousand four hundred"
     );
   });
 
@@ -42,7 +46,7 @@ suite(`Converts words to numbers`, function() {
 
   test(`throws on large numbers`, function() {
     const provideABigNumber = function() {
-      numberToWords(1000000000000);
+      numberToWords(1000000000000000);
     };
     assert.throws(provideABigNumber, Error, "Not implemented");
   });

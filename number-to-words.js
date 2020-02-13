@@ -1,11 +1,17 @@
 const log = console.log.bind(console);
 
+const chunkWords = ["", "thousand", "million", "billion", "trillion"].reverse();
+
+const MAX_DIGITS = chunkWords.length * 3;
+
+const MAX_NUMBER = Number("9".repeat(MAX_DIGITS));
+
 const numberToWords = function(number) {
   if (number.constructor.name !== "Number") {
     throw new Error(`Provide a number`);
   }
 
-  if (number > 999999999999) {
+  if (number > MAX_NUMBER) {
     throw new Error(`Not implemented`);
   }
 
@@ -36,8 +42,12 @@ const numberToWords = function(number) {
       }
     } else {
       const tens = Math.floor(tensAndOnes / 10);
+      answer += `${tensToWords[tens]}`;
+      // Avoid 'thirty zero'
       const ones = tensAndOnes % 10;
-      answer += `${tensToWords[tens]} ${onesToWords[ones]}`;
+      if (ones) {
+        answer += ` ${onesToWords[ones]}`;
+      }
     }
 
     if (suffix) {
@@ -92,19 +102,19 @@ const numberToWords = function(number) {
   // We'll append this over time
   var answer = "";
 
-  var paddedNumber = String(number).padStart(12, "0");
-
-  var chunkWords = ["", "thousand", "million", "billion"];
+  var paddedNumber = String(number).padStart(MAX_DIGITS, "0");
 
   var suffixes = {};
 
   var chunkIndex = 0;
-  chunkWords.reverse().forEach(function(chunkWord) {
+  chunkWords.forEach(function(chunkWord) {
     var nextChunkIndex = chunkIndex + 3;
     log(`>>> ${chunkWord} ${chunkIndex}  ${nextChunkIndex}`);
     suffixes[chunkWord] = paddedNumber.slice(chunkIndex, nextChunkIndex);
     chunkIndex = nextChunkIndex;
   });
+
+  log({ suffixes });
 
   Object.keys(suffixes).forEach(function(suffix) {
     var value = suffixes[suffix];
