@@ -94,12 +94,12 @@ const numberToWords = function(number) {
 
   var paddedNumber = String(number).padStart(12, "0");
 
-  var chunkWords = ["", "thousand", "million", "billion"].reverse();
+  var chunkWords = ["", "thousand", "million", "billion"];
 
   var suffixes = {};
 
   var chunkIndex = 0;
-  chunkWords.forEach(function(chunkWord) {
+  chunkWords.reverse().forEach(function(chunkWord) {
     var nextChunkIndex = chunkIndex + 3;
     log(`>>> ${chunkWord} ${chunkIndex}  ${nextChunkIndex}`);
     suffixes[chunkWord] = paddedNumber.slice(chunkIndex, nextChunkIndex);
