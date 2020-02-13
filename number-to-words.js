@@ -109,12 +109,9 @@ const numberToWords = function(number) {
   var chunkIndex = 0;
   chunkWords.forEach(function(chunkWord) {
     var nextChunkIndex = chunkIndex + 3;
-    log(`>>> ${chunkWord} ${chunkIndex}  ${nextChunkIndex}`);
     suffixes[chunkWord] = paddedNumber.slice(chunkIndex, nextChunkIndex);
     chunkIndex = nextChunkIndex;
   });
-
-  log({ suffixes });
 
   Object.keys(suffixes).forEach(function(suffix) {
     var value = suffixes[suffix];
