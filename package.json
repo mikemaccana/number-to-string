@@ -1,7 +1,7 @@
 {
   "name": "number-to-string",
   "version": "1.0.0",
-  "description": "Turns small numbers into English words",
+  "description": "Turns numbers into English words",
   "main": "number-to-words.js",
   "directories": {
     "test": "test"
